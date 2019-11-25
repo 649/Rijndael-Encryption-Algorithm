@@ -131,7 +131,6 @@ def main():
         khext = ktext.hex().upper()
         print("[*] Encryption KEY (in hex): %s" % khext)
         print("[*] Plain text MSG (in hex): %s" % phext)
-        print("[*] BEGIN AES KEY SCHEDULE")
         k = []
         k.append(khext)
         print("RoundKey [0]: %s" % k[0])
@@ -141,10 +140,9 @@ def main():
 
         m = []
         m.append(phext)
-        print("[*] AES ROUNDKEYS OBTAINED")
         print("Encipher Round [0]")
         m.append(addroundkey(k[0], m[0]))
-        print("Substitute Byte: %s" % m[1])
+        print("Add RoundKey: %s" % m[1])
         x = 1
         mx = 1
         while(mx <= 10):
@@ -161,8 +159,10 @@ def main():
                 print("Mix Column: %s" % m[x])
             m.append(addroundkey(k[mx], m[x]))
             x += 1
-            print("Ciphertext: %s" % m[x])
+            print("Add RoundKey: %s" % m[x])
             mx += 1
+
+        print("[*] Cipher text MSG (in hex): %s" % m[x])
     else:
         print('Error: Plaintext message is not 128 bits | 16 length.')
 
